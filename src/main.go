@@ -4,7 +4,7 @@ import (
   "fmt"
   // "encoding/json"
   // "io/ioutil"
-  "github.com/sinhadotabhinav/cryptogeek/src/api"
+  // "github.com/sinhadotabhinav/cryptogeek/src/api"
   // "github.com/sinhadotabhinav/cryptogeek/src/configs"
   "github.com/sinhadotabhinav/cryptogeek/src/mappers"
 )
@@ -15,11 +15,11 @@ func main() {
   // logger.Debug("Starting application...")
   fmt.Println("Welcome to cryptogeek application")
   // logger.Info("Application has started")
-  resp, err := api.ExchangeInfo()
-  if err != nil {
+  // resp, err := api.ExchangeInfo()
+  // if err != nil {
     // logger.Fatalf("%s request has failed: %s", configs.GetMethod(), err.Error())
-  }
-  fmt.Println(resp)
+  // }
+  // fmt.Println(resp)
   fmt.Println(mappers.BinanceBaseUrl())
   //
   // defer resp.Body.Close()
