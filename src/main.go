@@ -6,6 +6,7 @@ import (
   // "io/ioutil"
   // "github.com/sinhadotabhinav/cryptogeek/src/api"
   // "github.com/sinhadotabhinav/cryptogeek/src/configs"
+  "github.com/sinhadotabhinav/cryptogeek/src/configs"
   "github.com/sinhadotabhinav/cryptogeek/src/mappers"
 )
 
@@ -21,6 +22,7 @@ func main() {
   // }
   // fmt.Println(resp)
   fmt.Println(mappers.BinanceBaseUrl())
+  fmt.Println(configs.AcceptHeader())
   //
   // defer resp.Body.Close()
   // // bodyBytes, err := ioutil.ReadAll(resp.Body)
