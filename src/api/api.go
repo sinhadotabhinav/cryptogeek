@@ -1,7 +1,7 @@
 package api
 
 import (
-  "github.com/sinhadotabhinav/cryptogeek/configs"
+  "github.com/sinhadotabhinav/cryptogeek/src/configs"
   "net/http"
 )
 
