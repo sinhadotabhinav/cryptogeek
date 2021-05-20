@@ -4,8 +4,8 @@ import (
   "fmt"
   // "encoding/json"
   // "io/ioutil"
-  "github.com/sinhadotabhinav/cryptogeek/api"
-  "github.com/sinhadotabhinav/cryptogeek/configs"
+  "github.com/sinhadotabhinav/cryptogeek/src/api"
+  "github.com/sinhadotabhinav/cryptogeek/src/configs"
   "github.com/sinhadotabhinav/cryptogeek/src/mappers"
 )
 

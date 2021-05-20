@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/sinhadotabhinav/cryptogeek/api v0.0.0-00010101000000-000000000000
 	github.com/sinhadotabhinav/cryptogeek/configs v0.0.0-00010101000000-000000000000
+	github.com/sinhadotabhinav/cryptogeek/src/mappers v0.0.0-20210520134843-3338262dc356
 	github.com/sirupsen/logrus v1.8.1 // indirect
 )
 
