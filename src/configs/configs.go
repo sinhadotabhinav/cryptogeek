@@ -45,6 +45,10 @@ func AcceptHeader() string {
  return acceptHeader
 }
 
+func BaseAsset(info SymbolInfo) string {
+  return info.BaseAsset_
+}
+
 func binanceBaseUrl() string {
  return binanceUrl
 }
@@ -71,6 +75,10 @@ func PriceEndpoint() string {
 
 func Price24hourEndpoint() string {
   return binanceBaseUrl() + price24hourEndpoint + symbolParameter()
+}
+
+func QuoteAsset(info SymbolInfo) string {
+  return info.QuoteAsset_
 }
 
 func symbolParameter() string {
