@@ -1,20 +1,26 @@
 package mappers
 
-type ExchangeInfo struct {
-	Timezone_        string        `json:"timezone"`
-	ServerTime_      int64         `json:"serverTime"`
-	RateLimits_      []interface{} `json:"rateLimits"`
-	ExchangeFilters_ []interface{} `json:"exchangeFilters"`
-	Symbols_         []string      `json:"symbols"`
+import (
+  "encoding/json"
+  "github.com/sinhadotabhinav/cryptogeek/src/configs"
+  "io/ioutil"
+  "net/http"
+)
+
+var logger = configs.Logger()
+
+func ExchangeInfoMapper(response *http.Response) configs.ExchangeInfo {
+  bodyBytes := responseBody(response)
+  var responseObject configs.ExchangeInfo
+  json.Unmarshal(bodyBytes, &responseObject)
+  return responseObject
 }
 
-const acceptHeader = "application/json"
-const binanceUrl = "https://api.binance.com/api/v3"
-
-func AcceptHeader() string {
- return acceptHeader
-}
-
-func BinanceBaseUrl() string {
- return binanceUrl
+func responseBody(response *http.Response) []byte {
+  defer response.Body.Close()
+  bodyBytes, err := ioutil.ReadAll(response.Body)
+  if err != nil {
+    logger.Fatalf("Error reading response: %s", err.Error())
+  }
+  return bodyBytes
 }
