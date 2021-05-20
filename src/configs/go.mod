@@ -1,3 +1,5 @@
-module github.com/sinhadotabhinav/cryptogeek/configs
+module github.com/sinhadotabhinav/cryptogeek/src/configs
 
 go 1.16
+
+require github.com/sirupsen/logrus v1.8.1
