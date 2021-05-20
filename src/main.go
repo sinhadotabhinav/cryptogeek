@@ -5,19 +5,19 @@ import (
   // "encoding/json"
   // "io/ioutil"
   "github.com/sinhadotabhinav/cryptogeek/src/api"
-  "github.com/sinhadotabhinav/cryptogeek/src/configs"
+  // "github.com/sinhadotabhinav/cryptogeek/src/configs"
   "github.com/sinhadotabhinav/cryptogeek/src/mappers"
 )
 
-var logger = configs.Logger()
+// var logger = configs.Logger()
 
 func main() {
-  logger.Debug("Starting application...")
+  // logger.Debug("Starting application...")
   fmt.Println("Welcome to cryptogeek application")
-  logger.Info("Application has started")
+  // logger.Info("Application has started")
   resp, err := api.ExchangeInfo()
   if err != nil {
-    logger.Fatalf("%s request has failed: %s", configs.GetMethod(), err.Error())
+    // logger.Fatalf("%s request has failed: %s", configs.GetMethod(), err.Error())
   }
   fmt.Println(resp)
   fmt.Println(mappers.BinanceBaseUrl())
