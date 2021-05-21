@@ -1,9 +1,4 @@
-package configs
-
-import (
-  "github.com/sirupsen/logrus"
-  "os"
-)
+package models
 
 type ExchangeInfo struct {
 	Timezone_        string        `json:"timezone"`
@@ -57,56 +52,12 @@ type SymbolInfo struct {
   Permissions_                []string      `json:"permissions"`
 }
 
-const acceptHeader = "application/json"
-const binanceUrl = "https://api.binance.com/api/v3"
-const exchangeInfoEndpoint = "/exchangeInfo"
-const getMethod = "GET"
-const priceEndpoint = "/ticker/price"
-const price24HourEndpoint = "/ticker/24hr"
-const symbolParam = "?symbol="
-
-func AcceptHeader() string {
- return acceptHeader
-}
-
 func BaseAsset(info SymbolInfo) string {
   return info.BaseAsset_
 }
 
-func binanceBaseUrl() string {
- return binanceUrl
-}
-
-func ExchangeInfoEndpoint() string {
- return binanceBaseUrl() + exchangeInfoEndpoint
-}
-
-func GetMethod() string {
- return getMethod
-}
-
-func Logger() *logrus.Logger {
-  var log = logrus.New()
-  log.Out = os.Stdout
-  log.Formatter = &logrus.JSONFormatter{}
-  log.Level = logrus.DebugLevel
-  return log
-}
-
-func PriceEndpoint() string {
-  return binanceBaseUrl() + priceEndpoint + symbolParameter()
-}
-
-func Price24HourEndpoint() string {
-  return binanceBaseUrl() + price24HourEndpoint + symbolParameter()
-}
-
 func QuoteAsset(info SymbolInfo) string {
   return info.QuoteAsset_
-}
-
-func symbolParameter() string {
-  return symbolParam
 }
 
 func SymbolName(info SymbolInfo) string {

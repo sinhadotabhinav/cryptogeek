@@ -4,14 +4,14 @@ import (
   "fmt"
   "github.com/sinhadotabhinav/cryptogeek/internal/assets"
   "github.com/sinhadotabhinav/cryptogeek/internal/inputs"
-  "github.com/sinhadotabhinav/cryptogeek/pkg/configs"
+  "github.com/sinhadotabhinav/cryptogeek/pkg/logger"
   "strings"
 )
 
-var logger = configs.Logger()
+var log = logger.Logger()
 
 func main() {
-  logger.Info("Application has started")
+  log.Info("Application has started")
   fmt.Println("Welcome to cryptogeek application!")
   // calling exchange info api to fetch all live assets
   bases, quoteInput := assets.ExchangeAssets()
@@ -20,11 +20,11 @@ func main() {
   baseInput := inputs.UserInput()
   for counter := 0; counter < len(baseInput); counter++ {
     if !assets.AssetFound(bases, baseInput[counter]) {
-      logger.Fatalf("Invalid base asset entered: %s", baseInput[counter])
+      log.Fatalf("Invalid base asset entered: %s", baseInput[counter])
     }
     symbol := strings.ToUpper(baseInput[counter] + quoteInput)
     // print price details on the console
-    fmt.Printf("-------------%s-------------\n", symbol)
+    fmt.Printf("--------------%s--------------\n", symbol)
     for key, value := range assets.PriceDetails(symbol) {
       fmt.Printf("%s: %s\n", key, value)
     }

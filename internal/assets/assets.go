@@ -4,13 +4,14 @@ import (
   "fmt"
   "github.com/sinhadotabhinav/cryptogeek/internal/inputs"
   "github.com/sinhadotabhinav/cryptogeek/pkg/api"
-  "github.com/sinhadotabhinav/cryptogeek/pkg/configs"
+  "github.com/sinhadotabhinav/cryptogeek/pkg/logger"
   "github.com/sinhadotabhinav/cryptogeek/pkg/mappers"
+  "github.com/sinhadotabhinav/cryptogeek/pkg/models"
   "strings"
   "sort"
 )
 
-var logger = configs.Logger()
+var log = logger.Logger()
 
 func AssetFound(assets []string, input string) bool {
   for _, value := range assets {
@@ -21,11 +22,11 @@ func AssetFound(assets []string, input string) bool {
   return false
 }
 
-func baseAssets(info configs.ExchangeInfo, quote string) []string {
+func baseAssets(info models.ExchangeInfo, quote string) []string {
   baseAssets := make(map[string]struct{})
   for counter := 0; counter < len(info.Symbols_); counter++ {
-    if strings.EqualFold(configs.QuoteAsset(info.Symbols_[counter]), quote) {
-      baseAssets[configs.BaseAsset(info.Symbols_[counter])] = struct{}{}
+    if strings.EqualFold(models.QuoteAsset(info.Symbols_[counter]), quote) {
+      baseAssets[models.BaseAsset(info.Symbols_[counter])] = struct{}{}
     }
   }
   return sortMap(baseAssets)
@@ -34,7 +35,7 @@ func baseAssets(info configs.ExchangeInfo, quote string) []string {
 func ExchangeAssets() ([]string, string) {
   resp, err := api.ExchangeInfo()
   if err != nil {
-    logger.Fatalf("Http request has failed: %s", err.Error())
+    log.Fatalf("Http request has failed: %s", err.Error())
   }
   info := mappers.ExchangeInfoMapper(resp)
   quotes := quoteAssets(info)
@@ -42,7 +43,7 @@ func ExchangeAssets() ([]string, string) {
   fmt.Printf("Enter a quote asset from the below list:\n%s\n", quotes)
   quoteInput := inputs.UserInput()[0]
   if !AssetFound(quotes, quoteInput) {
-    logger.Fatalf("Invalid quote asset entered: %s", quoteInput)
+    log.Fatalf("Invalid quote asset entered: %s", quoteInput)
   }
   return baseAssets(info, quoteInput), quoteInput
 }
@@ -50,7 +51,7 @@ func ExchangeAssets() ([]string, string) {
 func PriceDetails(symbol string) map[string]string {
   resp, err := api.Price24Hour(symbol)
   if err != nil {
-    logger.Fatalf("Http request has failed: %s", err.Error())
+    log.Fatalf("Http request has failed: %s", err.Error())
   }
   price24Hour := mappers.Price24HourMapper(resp)
   priceMap := make(map[string]string)
@@ -61,10 +62,10 @@ func PriceDetails(symbol string) map[string]string {
   return priceMap
 }
 
-func quoteAssets(info configs.ExchangeInfo) []string {
+func quoteAssets(info models.ExchangeInfo) []string {
   quoteAssets := make(map[string]struct{})
   for counter := 0; counter < len(info.Symbols_); counter++ {
-    quoteAssets[configs.QuoteAsset(info.Symbols_[counter])] = struct{}{}
+    quoteAssets[models.QuoteAsset(info.Symbols_[counter])] = struct{}{}
   }
   return sortMap(quoteAssets)
 }
