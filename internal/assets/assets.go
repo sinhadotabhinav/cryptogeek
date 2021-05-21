@@ -7,6 +7,7 @@ import (
   "github.com/sinhadotabhinav/cryptogeek/pkg/logger"
   "github.com/sinhadotabhinav/cryptogeek/pkg/mappers"
   "github.com/sinhadotabhinav/cryptogeek/pkg/models"
+  "strconv"
   "strings"
   "sort"
 )
@@ -77,4 +78,13 @@ func sortMap(assets map[string]struct{}) []string {
   }
   sort.Strings(keys)
   return keys
+}
+
+func TotalProfit(quantity float64, boughtPrice float64, currentPrice string) float64 {
+  cPrice, _ := strconv.ParseFloat(currentPrice, 64)
+  // quantity of doge = 500
+  // past: 1 doge = 0.52085 usdt
+  // present: 1 doge = 0.35476 usdt
+  //
+  return 500*(cPrice-boughtPrice)
 }

@@ -1,11 +1,11 @@
 package models
 
 type ExchangeInfo struct {
-	Timezone_        string        `json:"timezone"`
-	ServerTime_      int64         `json:"serverTime"`
-	RateLimits_      []interface{} `json:"rateLimits"`
-	ExchangeFilters_ []interface{} `json:"exchangeFilters"`
-	Symbols_         []SymbolInfo  `json:"symbols"`
+	Timezone_        						string        `json:"timezone"`
+	ServerTime_      						int64         `json:"serverTime"`
+	RateLimits_      						[]interface{} `json:"rateLimits"`
+	ExchangeFilters_ 						[]interface{} `json:"exchangeFilters"`
+	Symbols_         						[]SymbolInfo  `json:"symbols"`
 }
 
 type Price24Hour struct {
