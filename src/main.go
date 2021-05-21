@@ -14,37 +14,23 @@ import (
 var logger = configs.Logger()
 
 func main() {
-  logger.Debug("Starting application...")
-  fmt.Println("Welcome to cryptogeek application")
   logger.Info("Application has started")
-  resp, err := api.ExchangeInfo()
-  if err != nil {
-    logger.Fatalf("Http request has failed: %s", err.Error())
-  }
-  info := mappers.ExchangeInfoMapper(resp)
-  quotes := quoteAssets(info)
-  // menu
-  fmt.Printf("Enter a quote asset %s:\n", quotes)
-  text1, _ := bufio.NewReader(os.Stdin).ReadString('\n')
-  quoteInput := strings.ReplaceAll(text1[:len(text1)-1], " ", "")
-  if !assetFound(quotes, quoteInput) {
-    logger.Fatalf("Invalid quote asset entered: %s", quoteInput)
-  }
-  bases := baseAssets(info, quoteInput)
-  fmt.Printf("Enter one or multiple base assets seperated by comma %s:\n", bases)
-  text2, _ := bufio.NewReader(os.Stdin).ReadString('\n')
-  baseInput := strings.Split(strings.ReplaceAll(text2[:len(text2)-1], " ", ""), ",")
+  fmt.Println("Welcome to cryptogeek application!")
+  // calling exchange info api to fetch all live assets
+  bases, quoteInput := exchangeAssets()
+  // fetch base asset(s) as input from the user and retrieve live price details
+  fmt.Printf("Enter one or multiple base assets seperated by comma from the below list:\n%s\n", bases)
+  baseInput := userInput()
   for counter := 0; counter < len(baseInput); counter++ {
     if !assetFound(bases, baseInput[counter]) {
       logger.Fatalf("Invalid base asset entered: %s", baseInput[counter])
     }
     symbol := strings.ToUpper(baseInput[counter] + quoteInput)
-    resp2, err2 := api.Price24Hour(symbol)
-    if err2 != nil {
-      logger.Fatalf("Http request has failed: %s", err.Error())
+    // print price details on the console
+    fmt.Printf("-------------%s-------------\n", symbol)
+    for key, value := range priceDetails(symbol) {
+      fmt.Printf("%s: %s\n", key, value)
     }
-    price24Hour := mappers.Price24HourMapper(resp2)
-    fmt.Println(price24Hour)
   }
 }
 
@@ -73,6 +59,36 @@ func baseAssets(info configs.ExchangeInfo, quote string) []string {
   return sortMap(baseAssets)
 }
 
+func exchangeAssets() ([]string, string) {
+  resp, err := api.ExchangeInfo()
+  if err != nil {
+    logger.Fatalf("Http request has failed: %s", err.Error())
+  }
+  info := mappers.ExchangeInfoMapper(resp)
+  quotes := quoteAssets(info)
+  // interactive menu for users
+  fmt.Printf("Enter a quote asset from the below list:\n%s\n", quotes)
+  quoteInput := userInput()[0]
+  if !assetFound(quotes, quoteInput) {
+    logger.Fatalf("Invalid quote asset entered: %s", quoteInput)
+  }
+  return baseAssets(info, quoteInput), quoteInput
+}
+
+func priceDetails(symbol string) map[string]string {
+  resp, err := api.Price24Hour(symbol)
+  if err != nil {
+    logger.Fatalf("Http request has failed: %s", err.Error())
+  }
+  price24Hour := mappers.Price24HourMapper(resp)
+  priceMap := make(map[string]string)
+  priceMap["current_price"] = price24Hour.LastPrice_
+  priceMap["weighted_average_price"] = price24Hour.WeightedAvgPrice_
+  priceMap["lowest_24h_price"] = price24Hour.LowPrice_
+  priceMap["highest_24h_price"] = price24Hour.HighPrice_
+  return priceMap
+}
+
 func quoteAssets(info configs.ExchangeInfo) []string {
   quoteAssets := make(map[string]struct{})
   for counter := 0; counter < len(info.Symbols_); counter++ {
@@ -88,4 +104,11 @@ func sortMap(assets map[string]struct{}) []string {
   }
   sort.Strings(keys)
   return keys
+}
+
+func userInput() []string {
+  // this function removes the additional \n character at the end of each
+  // line input added by bufio. this also removes whitespaces if any
+  text, _ := bufio.NewReader(os.Stdin).ReadString('\n')
+  return strings.Split(strings.ReplaceAll(text[:len(text) - 1], " ", ""), ",")
 }
