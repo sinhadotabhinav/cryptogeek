@@ -16,6 +16,13 @@ func ExchangeInfoMapper(response *http.Response) configs.ExchangeInfo {
   return responseObject
 }
 
+func Price24HourMapper(response *http.Response) configs.Price24Hour {
+  bodyBytes := responseBody(response)
+  var responseObject configs.Price24Hour
+  json.Unmarshal(bodyBytes, &responseObject)
+  return responseObject
+}
+
 func responseBody(response *http.Response) []byte {
   defer response.Body.Close()
   bodyBytes, err := ioutil.ReadAll(response.Body)

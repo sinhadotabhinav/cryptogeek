@@ -13,6 +13,30 @@ type ExchangeInfo struct {
 	Symbols_         []SymbolInfo  `json:"symbols"`
 }
 
+type Price24Hour struct {
+  Symbol_                     string        `json:"symbol"`
+  PriceChange_                string        `json:"priceChange"`
+  PriceChangePercent_         string        `json:"priceChangePercent"`
+  WeightedAvgPrice_           string        `json:"weightedAvgPrice"`
+  PrevClosePrice_             string        `json:"prevClosePrice"`
+  LastPrice_                  string        `json:"lastPrice"`
+  LastQty_                    string        `json:"lastQty"`
+  BidPrice_                   string        `json:"bidPrice"`
+  BidQty_                     string        `json:"bidQty"`
+  AskPrice_                   string        `json:"askPrice"`
+  AskQty_                     string        `json:"askQty"`
+  OpenPrice_                  string        `json:"openPrice"`
+  HighPrice_                  string        `json:"highPrice"`
+  LowPrice_                   string        `json:"lowPrice"`
+  Volume_                     string        `json:"volume"`
+  QuoteVolume_                string        `json:"quoteVolume"`
+  OpenTime_                   string        `json:"openTime"`
+  CloseTime_                  int           `json:"closeTime"`
+  FirstId_                    int           `json:"firstId"`
+  LastId_                     int           `json:"lastId"`
+  Count_                      int           `json:"count"`
+}
+
 type SymbolInfo struct {
   Symbol_                     string        `json:"symbol"`
   Status_                     string        `json:"status"`
@@ -38,7 +62,7 @@ const binanceUrl = "https://api.binance.com/api/v3"
 const exchangeInfoEndpoint = "/exchangeInfo"
 const getMethod = "GET"
 const priceEndpoint = "/ticker/price"
-const price24hourEndpoint = "/ticker/24hr"
+const price24HourEndpoint = "/ticker/24hr"
 const symbolParam = "?symbol="
 
 func AcceptHeader() string {
@@ -73,8 +97,8 @@ func PriceEndpoint() string {
   return binanceBaseUrl() + priceEndpoint + symbolParameter()
 }
 
-func Price24hourEndpoint() string {
-  return binanceBaseUrl() + price24hourEndpoint + symbolParameter()
+func Price24HourEndpoint() string {
+  return binanceBaseUrl() + price24HourEndpoint + symbolParameter()
 }
 
 func QuoteAsset(info SymbolInfo) string {

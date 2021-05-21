@@ -11,12 +11,12 @@ func ExchangeInfo() (*http.Response, error) {
   return httpRequest(configs.GetMethod(), configs.ExchangeInfoEndpoint())
 }
 
-func Price() (*http.Response, error) {
-  return httpRequest(configs.GetMethod(), configs.PriceEndpoint())
+func Price(symbol string) (*http.Response, error) {
+  return httpRequest(configs.GetMethod(), configs.PriceEndpoint() + symbol)
 }
 
-func Price24hour() (*http.Response, error) {
-  return httpRequest(configs.GetMethod(), configs.Price24hourEndpoint())
+func Price24Hour(symbol string) (*http.Response, error) {
+  return httpRequest(configs.GetMethod(), configs.Price24HourEndpoint() + symbol)
 }
 
 func httpRequest(method string, url string) (*http.Response, error) {

@@ -25,13 +25,27 @@ func main() {
   quotes := quoteAssets(info)
   // menu
   fmt.Printf("Enter a quote asset %s:\n", quotes)
-  text, _ := bufio.NewReader(os.Stdin).ReadString('\n')
-  input := text[:len(text)-1]
-  if !assetFound(quotes, input) {
-    logger.Fatalf("Invalid quote asset entered: %s", input)
+  text1, _ := bufio.NewReader(os.Stdin).ReadString('\n')
+  quoteInput := strings.ReplaceAll(text1[:len(text1)-1], " ", "")
+  if !assetFound(quotes, quoteInput) {
+    logger.Fatalf("Invalid quote asset entered: %s", quoteInput)
   }
-  bases := baseAssets(info, input)
+  bases := baseAssets(info, quoteInput)
   fmt.Printf("Enter one or multiple base assets seperated by comma %s:\n", bases)
+  text2, _ := bufio.NewReader(os.Stdin).ReadString('\n')
+  baseInput := strings.Split(strings.ReplaceAll(text2[:len(text2)-1], " ", ""), ",")
+  for counter := 0; counter < len(baseInput); counter++ {
+    if !assetFound(bases, baseInput[counter]) {
+      logger.Fatalf("Invalid base asset entered: %s", baseInput[counter])
+    }
+    symbol := strings.ToUpper(baseInput[counter] + quoteInput)
+    resp2, err2 := api.Price24Hour(symbol)
+    if err2 != nil {
+      logger.Fatalf("Http request has failed: %s", err.Error())
+    }
+    price24Hour := mappers.Price24HourMapper(resp2)
+    fmt.Println(price24Hour)
+  }
 }
 
 func assetFound(assets []string, input string) bool {
@@ -41,6 +55,12 @@ func assetFound(assets []string, input string) bool {
     }
   }
   return false
+}
+
+func assetPrice(baseInput []string, quoteInput string) string {
+  fmt.Println(baseInput)
+  fmt.Println(quoteInput)
+  return "OK"
 }
 
 func baseAssets(info configs.ExchangeInfo, quote string) []string {
