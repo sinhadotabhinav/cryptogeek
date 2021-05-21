@@ -3,9 +3,9 @@ package main
 import (
   "bufio"
   "fmt"
-  "github.com/sinhadotabhinav/cryptogeek/src/api"
-  "github.com/sinhadotabhinav/cryptogeek/src/configs"
-  "github.com/sinhadotabhinav/cryptogeek/src/mappers"
+  "github.com/sinhadotabhinav/cryptogeek/pkg/api"
+  "github.com/sinhadotabhinav/cryptogeek/pkg/configs"
+  "github.com/sinhadotabhinav/cryptogeek/pkg/mappers"
   "os"
   "strings"
   "sort"

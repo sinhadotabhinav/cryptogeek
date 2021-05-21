@@ -2,7 +2,7 @@ package mappers
 
 import (
   "encoding/json"
-  "github.com/sinhadotabhinav/cryptogeek/src/configs"
+  "github.com/sinhadotabhinav/cryptogeek/pkg/configs"
   "io/ioutil"
   "net/http"
 )
