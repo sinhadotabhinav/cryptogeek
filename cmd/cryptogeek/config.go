@@ -77,13 +77,15 @@ func HasInvested(config JSONConfig) bool {
 
 // NewConfig func reads and unmarshals the config file
 func NewConfig(file string) JSONConfig {
-	raw, err := ioutil.ReadFile(file)
-	if err != nil {
-		log.Fatalf("Tried to read config file %s, got %s", file, err.Error())
-	}
 	var conf JSONConfig
-	if err = json.Unmarshal(raw, &conf); err != nil {
-		log.Fatalf("Tried to unmarshal config file %s, got %s", file, err.Error())
+	if file != "" {
+		raw, err := ioutil.ReadFile(file)
+		if err != nil {
+			log.Debugf("Tried to read config file %s, got %s", file, err.Error())
+		}
+		if err = json.Unmarshal(raw, &conf); err != nil {
+			log.Debugf("Tried to unmarshal config file %s, got %s", file, err.Error())
+		}
 	}
 	return conf
 }
