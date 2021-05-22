@@ -21,6 +21,7 @@ func main() {
   bases, quoteInput := assets.ExchangeAssets()
   // fetch base asset(s) as input from the user and retrieve live price details
   fmt.Printf("Enter one or multiple base assets seperated by comma from the below list:\n%s\n", bases)
+  // interactive menu for users
   baseInput := inputs.UserInput()
   for counter := 0; counter < len(baseInput); counter++ {
     if !assets.AssetFound(bases, baseInput[counter]) {
