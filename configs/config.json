@@ -1,17 +1,17 @@
 {
-	"has_invested": false,
+	"has_invested": true,
 	"platform": "binance",
 	"quote_asset_symbol": "USDT",
 	"base_assets": [
 		{
 			"symbol": "DOGE",
-			"price": 0.53058,
-			"quantity": 452.8
+			"price": 0.52399,
+			"quantity": 491.80770
 		},
 		{
 			"symbol": "XRP",
-			"price": 1.5208,
-			"quantity": 30.6
+			"price": 1.4809,
+			"quantity": 26.14383
 		}
 	]
 }

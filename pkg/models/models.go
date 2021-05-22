@@ -1,65 +1,71 @@
 package models
 
+// ExchangeInfo is the json model for ExchangeInfo http response
 type ExchangeInfo struct {
-	Timezone_        						string        `json:"timezone"`
-	ServerTime_      						int64         `json:"serverTime"`
-	RateLimits_      						[]interface{} `json:"rateLimits"`
-	ExchangeFilters_ 						[]interface{} `json:"exchangeFilters"`
-	Symbols_         						[]SymbolInfo  `json:"symbols"`
+	Timezone        string        `json:"timezone"`
+	ServerTime      int64         `json:"serverTime"`
+	RateLimits      []interface{} `json:"rateLimits"`
+	ExchangeFilters []interface{} `json:"exchangeFilters"`
+	Symbols         []SymbolInfo  `json:"symbols"`
 }
 
+// Price24Hour is the json model for Price24Hour http response
 type Price24Hour struct {
-  Symbol_                     string        `json:"symbol"`
-  PriceChange_                string        `json:"priceChange"`
-  PriceChangePercent_         string        `json:"priceChangePercent"`
-  WeightedAvgPrice_           string        `json:"weightedAvgPrice"`
-  PrevClosePrice_             string        `json:"prevClosePrice"`
-  LastPrice_                  string        `json:"lastPrice"`
-  LastQty_                    string        `json:"lastQty"`
-  BidPrice_                   string        `json:"bidPrice"`
-  BidQty_                     string        `json:"bidQty"`
-  AskPrice_                   string        `json:"askPrice"`
-  AskQty_                     string        `json:"askQty"`
-  OpenPrice_                  string        `json:"openPrice"`
-  HighPrice_                  string        `json:"highPrice"`
-  LowPrice_                   string        `json:"lowPrice"`
-  Volume_                     string        `json:"volume"`
-  QuoteVolume_                string        `json:"quoteVolume"`
-  OpenTime_                   string        `json:"openTime"`
-  CloseTime_                  int           `json:"closeTime"`
-  FirstId_                    int           `json:"firstId"`
-  LastId_                     int           `json:"lastId"`
-  Count_                      int           `json:"count"`
+	Symbol             string `json:"symbol"`
+	PriceChange        string `json:"priceChange"`
+	PriceChangePercent string `json:"priceChangePercent"`
+	WeightedAvgPrice   string `json:"weightedAvgPrice"`
+	PrevClosePrice     string `json:"prevClosePrice"`
+	LastPrice          string `json:"lastPrice"`
+	LastQty            string `json:"lastQty"`
+	BidPrice           string `json:"bidPrice"`
+	BidQty             string `json:"bidQty"`
+	AskPrice           string `json:"askPrice"`
+	AskQty             string `json:"askQty"`
+	OpenPrice          string `json:"openPrice"`
+	HighPrice          string `json:"highPrice"`
+	LowPrice           string `json:"lowPrice"`
+	Volume             string `json:"volume"`
+	QuoteVolume        string `json:"quoteVolume"`
+	OpenTime           string `json:"openTime"`
+	CloseTime          int    `json:"closeTime"`
+	FirstId            int    `json:"firstId"`
+	LastId             int    `json:"lastId"`
+	Count              int    `json:"count"`
 }
 
+// SymbolInfo is the json model for Symbols json array in ExchangeInfo http response
 type SymbolInfo struct {
-  Symbol_                     string        `json:"symbol"`
-  Status_                     string        `json:"status"`
-  BaseAsset_                  string        `json:"baseAsset"`
-  BaseAssetPrecision_         int           `json:"baseAssetPrecision"`
-  QuoteAsset_                 string        `json:"quoteAsset"`
-  QuotePrecision_             int           `json:"quotePrecision"`
-  QuoteAssetPrecision_        int           `json:"quoteAssetPrecision"`
-  BaseCommissionPrecision_    int           `json:"baseCommissionPrecision"`
-  QuoteCommissionPrecision_   int           `json:"quoteCommissionPrecision"`
-  OrderTypes_                 []interface{} `json:"orderTypes"`
-  IcebergAllowed_             bool          `json:"icebergAllowed"`
-  OcoAllowed_                 bool          `json:"ocoAllowed"`
-  QuoteOrderQtyMarketAllowed_ bool          `json:"quoteOrderQtyMarketAllowed"`
-  IsSpotTradingAllowed_       bool          `json:"isSpotTradingAllowed"`
-  IsMarginTradingAllowed_     bool          `json:"isMarginTradingAllowed"`
-  Filters_                    []interface{} `json:"filters"`
-  Permissions_                []string      `json:"permissions"`
+	Symbol                     string        `json:"symbol"`
+	Status                     string        `json:"status"`
+	BaseAsset                  string        `json:"baseAsset"`
+	BaseAssetPrecision         int           `json:"baseAssetPrecision"`
+	QuoteAsset                 string        `json:"quoteAsset"`
+	QuotePrecision             int           `json:"quotePrecision"`
+	QuoteAssetPrecision        int           `json:"quoteAssetPrecision"`
+	BaseCommissionPrecision    int           `json:"baseCommissionPrecision"`
+	QuoteCommissionPrecision   int           `json:"quoteCommissionPrecision"`
+	OrderTypes                 []interface{} `json:"orderTypes"`
+	IcebergAllowed             bool          `json:"icebergAllowed"`
+	OcoAllowed                 bool          `json:"ocoAllowed"`
+	QuoteOrderQtyMarketAllowed bool          `json:"quoteOrderQtyMarketAllowed"`
+	IsSpotTradingAllowed       bool          `json:"isSpotTradingAllowed"`
+	IsMarginTradingAllowed     bool          `json:"isMarginTradingAllowed"`
+	Filters                    []interface{} `json:"filters"`
+	Permissions                []string      `json:"permissions"`
 }
 
+// BaseAsset func returns the base asset string in SymbolInfo
 func BaseAsset(info SymbolInfo) string {
-  return info.BaseAsset_
+	return info.BaseAsset
 }
 
+// QuoteAsset func returns the quote asset string in SymbolInfo
 func QuoteAsset(info SymbolInfo) string {
-  return info.QuoteAsset_
+	return info.QuoteAsset
 }
 
+// SymbolName func returns the symbol name string in SymbolInfo
 func SymbolName(info SymbolInfo) string {
-  return info.Symbol_
+	return info.Symbol
 }
