@@ -6,6 +6,8 @@ This is a golang-based application that retrieves live exchange information of t
 
 ## Configurations
 
+Update the full path of `CRYPTOGEEK_CONFIG_PATH` in [`config.go`](https://github.com/sinhadotabhinav/cryptogeek/blob/master/cmd/cryptogeek/config.go#L26).
+
 Customise the [`/configs/config.json`](https://github.com/sinhadotabhinav/cryptogeek/blob/master/configs/config.json) based on your trading currencies. Set `"has_invested": false` if you are not interested in the profit/loss statement of your assets.
  See below example:
 

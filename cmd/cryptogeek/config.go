@@ -23,7 +23,7 @@ type BaseAssetConfig struct {
 }
 
 // CRYPTOGEEK_CONFIG_PATH is path to config file
-const CRYPTOGEEK_CONFIG_PATH = "../../configs/config.json"
+const CRYPTOGEEK_CONFIG_PATH = "/Users/abhinav/Github/cryptogeek/configs/config.json"
 
 // BaseAsset func returns the base asset details
 func BaseAsset(config JSONConfig, key int) BaseAssetConfig {
